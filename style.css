@@ -1,0 +1,232 @@
+/* 色と基本設定 */
+:root {
+  --bg-color: #FFF0F5;      /* 優しい背景色（LavenderBlush） */
+  --primary: #FF6B81;       /* ポップなピンク */
+  --secondary: #1DD1A1;     /* 爽やかなグリーン */
+  --accent: #FFA502;        /* 目立つオレンジ（星やハイライト） */
+  --text-main: #2F3542;     /* 濃いグレー（文字色） */
+  --stroke-guide: #E0E0E0;  /* うすいグレー（下敷き線） */
+  --stroke-draw: #0984E3;   /* 鮮やかな青（描画される線） */
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  color: var(--text-main);
+  /* スマホでのスクロールやバウンスを抑制してアプリ感を出す */
+  overscroll-behavior-y: none;
+}
+
+#app {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  text-align: center;
+  padding: 15px 0;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  border-radius: 0 0 20px 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+h1 {
+  margin: 0;
+  font-size: 24px;
+  color: var(--primary);
+}
+
+.back-button {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  border-radius: 50px;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* ============================
+   グリッド画面レイアウト
+   ============================ */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  padding: 0 15px 30px;
+}
+
+.char-card {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  color: var(--text-main);
+  position: relative;
+}
+
+.char-card:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 3px rgba(0,0,0,0.05);
+}
+
+.char-card.clear {
+  border: 3px solid var(--accent);
+}
+
+.char-card .star {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  font-size: 24px;
+  line-height: 1;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* ============================
+   練習（トレース）画面レイアウト
+   ============================ */
+.practice-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px 40px;
+}
+
+.canvas-wrapper {
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1 / 1;
+  background-color: white;
+  border: 8px solid var(--primary);
+  border-radius: 30px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.guide-path {
+  fill: none;
+  stroke: var(--stroke-guide);
+  stroke-width: 6; /* KanjiVGの座標系(109x109)に合わせた太さ */
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.draw-path {
+  fill: none;
+  stroke: var(--stroke-draw);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  
+  /* 初期状態では線を隠す */
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+}
+
+/* クラス付与で書き順アニメーションを再生 */
+.draw-path.animate-stroke {
+  animation: writeStroke 1.5s ease-in-out forwards;
+}
+
+@keyframes writeStroke {
+  0% {
+    stroke-dashoffset: 400;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.controls {
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+}
+
+.action-btn {
+  padding: 16px 32px;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: inherit;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  color: white;
+  box-shadow: 0 6px 0;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.btn-replay {
+  background-color: var(--secondary);
+  box-shadow: 0 6px 0 #10AC84;
+}
+
+.btn-replay:active {
+  transform: translateY(6px);
+  box-shadow: 0 0 0 #10AC84;
+}
+
+.btn-done {
+  background-color: var(--accent);
+  box-shadow: 0 6px 0 #E58E26;
+}
+
+.btn-done:active {
+  transform: translateY(6px);
+  box-shadow: 0 0 0 #E58E26;
+}
+
+/* ============================
+   レスポンシブ調整（タブレット等）
+   ============================ */
+@media (min-width: 600px) {
+  .grid-container {
+    grid-template-columns: repeat(10, 1fr);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .char-card {
+    font-size: 40px;
+  }
+  
+  h1 {
+    font-size: 30px;
+  }
+}
