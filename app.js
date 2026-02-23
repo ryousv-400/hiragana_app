@@ -9,6 +9,16 @@ const state = {
 const hiraganaOrder = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん".split('');
 
 const appContainer = document.getElementById('app');
+const mascotSpeech = document.getElementById('mascot-speech');
+
+/**
+ * マスコットへの言葉を更新する
+ */
+function updateMascotText(htmlContent) {
+  if (mascotSpeech) {
+    mascotSpeech.innerHTML = htmlContent;
+  }
+}
 
 /**
  * 状態を保存
@@ -29,7 +39,7 @@ function fireConfetti() {
     return Math.random() * (max - min) + min;
   }
 
-  const interval = setInterval(function() {
+  const interval = setInterval(function () {
     const timeLeft = animationEnd - Date.now();
 
     if (timeLeft <= 0) {
@@ -37,10 +47,12 @@ function fireConfetti() {
     }
 
     const particleCount = 50 * (timeLeft / duration);
-    confetti(Object.assign({}, defaults, { particleCount,
+    confetti(Object.assign({}, defaults, {
+      particleCount,
       origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
     }));
-    confetti(Object.assign({}, defaults, { particleCount,
+    confetti(Object.assign({}, defaults, {
+      particleCount,
       origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
     }));
   }, 250);
@@ -84,6 +96,9 @@ function renderGrid() {
     gridContainer.appendChild(card);
   });
 
+  // マスコットのテキスト
+  updateMascotText('あいてるワクを<br>えらんでね！');
+
   appContainer.appendChild(gridContainer);
 }
 
@@ -96,7 +111,7 @@ function openPractice(char) {
   appContainer.innerHTML = '';
 
   const charData = hiraganaData[char];
-  
+
   // ヘッダー生成
   const header = document.createElement('header');
   header.innerHTML = `
@@ -104,8 +119,11 @@ function openPractice(char) {
     <h1>「${char}」をかいてみよう</h1>
   `;
   appContainer.appendChild(header);
-  
+
   document.getElementById('btn-back').addEventListener('click', renderGrid);
+
+  // マスコットのテキスト更新
+  updateMascotText('ここを<br>なぞってね！');
 
   // コンテンツ領域生成
   const practiceScreen = document.createElement('div');
@@ -114,10 +132,10 @@ function openPractice(char) {
   // SVG キャンバス (KanjiVGのデータは元々 109x109 の viewBox で作られている)
   const canvasWrapper = document.createElement('div');
   canvasWrapper.className = 'canvas-wrapper';
-  
+
   // SVGタグを構築
   let svgHTML = `<svg viewBox="0 0 109 109" id="hiragana-svg">`;
-  
+
   // ガイド線（下敷き）
   svgHTML += `<g id="guide-strokes">`;
   charData.paths.forEach((pathD) => {
@@ -148,16 +166,20 @@ function openPractice(char) {
   const replayBtn = document.createElement('button');
   replayBtn.className = 'action-btn btn-replay';
   replayBtn.innerText = 'もういちど';
-  replayBtn.addEventListener('click', replayAnimation);
+  replayBtn.addEventListener('click', () => {
+    updateMascotText('もういっかい！');
+    replayAnimation();
+  });
 
   const doneBtn = document.createElement('button');
   doneBtn.className = 'action-btn btn-done';
   doneBtn.innerText = 'できた！';
   doneBtn.addEventListener('click', () => {
+    updateMascotText('すごい！<br>よくできたね🌟');
     state.clearedChars.add(char);
     saveState();
     fireConfetti();
-    // 2秒後に一覧に戻る
+    // 2.5秒後に一覧に戻る
     setTimeout(renderGrid, 2500);
   });
 
@@ -174,11 +196,11 @@ function openPractice(char) {
 function replayAnimation() {
   const container = document.getElementById('animated-strokes');
   if (!container) return;
-  
+
   const content = container.innerHTML;
   container.innerHTML = "";
   // リフロー（再描画）を強制的にトリガーしてアニメーションをリセット
-  void container.offsetWidth; 
+  void container.offsetWidth;
   container.innerHTML = content;
 }
 
