@@ -19,6 +19,18 @@
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
+  /* 子供の誤操作防止: テキスト選択を無効化 */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* iOS: 長押しメニュー（コピー/ペーストなど）を無効化 */
+  -webkit-touch-callout: none;
+}
+
+html {
+  /* ピンチズームを完全に防止 */
+  touch-action: manipulation;
 }
 
 body {
@@ -29,6 +41,14 @@ body {
   color: var(--text-main);
   /* スマホでのスクロールやバウンスを抑制してアプリ感を出す */
   overscroll-behavior-y: none;
+  /* Pull-to-refresh（スワイプダウン更新）を防止 */
+  overscroll-behavior: none;
+  /* iOS ノッチ対応 (Safe Area) */
+  padding-top: env(safe-area-inset-top);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  /* 画像のドラッグを防止 */
+  -webkit-user-drag: none;
 }
 
 #app {

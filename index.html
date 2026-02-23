@@ -3,8 +3,24 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>たのしい ひらがな</title>
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- テーマカラー（ステータスバーの色） -->
+  <meta name="theme-color" content="#FF6B81">
+
+  <!-- iOS Safari 向け設定 -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="ひらがな">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+  <!-- Android Chrome 向け追加設定 -->
+  <meta name="mobile-web-app-capable" content="yes">
 
   <!-- 子供向けの可愛らしい丸ゴシックフォント -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,6 +71,21 @@
   <!-- アプリケーションデータとロジック -->
   <script src="data.js"></script>
   <script src="app.js"></script>
+
+  <!-- Service Worker の登録 -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then((registration) => {
+            console.log('Service Worker 登録成功:', registration.scope);
+          })
+          .catch((error) => {
+            console.log('Service Worker 登録失敗:', error);
+          });
+      });
+    }
+  </script>
 
 </body>
 
