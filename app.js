@@ -115,10 +115,9 @@ function openPractice(char) {
   // ヘッダー生成
   const header = document.createElement('header');
   header.innerHTML = `
-    <div class="header-back-row">
-      <button class="back-button" id="btn-back">もどる</button>
-    </div>
+    <button class="back-button" id="btn-back">もどる</button>
     <h1>「${char}」をかいてみよう</h1>
+    <div class="header-spacer"></div>
   `;
   appContainer.appendChild(header);
 
