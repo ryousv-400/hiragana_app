@@ -1,12 +1,19 @@
 /* 色と基本設定 */
 :root {
-  --bg-color: #FFF0F5;      /* 優しい背景色（LavenderBlush） */
-  --primary: #FF6B81;       /* ポップなピンク */
-  --secondary: #1DD1A1;     /* 爽やかなグリーン */
-  --accent: #FFA502;        /* 目立つオレンジ（星やハイライト） */
-  --text-main: #2F3542;     /* 濃いグレー（文字色） */
-  --stroke-guide: #E0E0E0;  /* うすいグレー（下敷き線） */
-  --stroke-draw: #0984E3;   /* 鮮やかな青（描画される線） */
+  --bg-color: #FFF0F5;
+  /* 優しい背景色（LavenderBlush） */
+  --primary: #FF6B81;
+  /* ポップなピンク */
+  --secondary: #1DD1A1;
+  /* 爽やかなグリーン */
+  --accent: #FFA502;
+  /* 目立つオレンジ（星やハイライト） */
+  --text-main: #2F3542;
+  /* 濃いグレー（文字色） */
+  --stroke-guide: #E0E0E0;
+  /* うすいグレー（下敷き線） */
+  --stroke-draw: #0984E3;
+  /* 鮮やかな青（描画される線） */
 }
 
 * {
@@ -37,7 +44,7 @@ header {
   text-align: center;
   padding: 15px 0;
   background-color: white;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   border-radius: 0 0 20px 20px;
   margin-bottom: 20px;
   position: relative;
@@ -47,6 +54,9 @@ h1 {
   margin: 0;
   font-size: 24px;
   color: var(--primary);
+  padding: 0 90px;
+  /* スマートフォンサイズでボタンと被らないように左右に余白を設ける */
+  line-height: 1.4;
 }
 
 .back-button {
@@ -78,7 +88,7 @@ h1 {
 .char-card {
   background-color: white;
   border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   aspect-ratio: 1 / 1;
   display: flex;
   justify-content: center;
@@ -93,7 +103,7 @@ h1 {
 
 .char-card:active {
   transform: scale(0.95);
-  box-shadow: 0 2px 3px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
 }
 
 .char-card.clear {
@@ -106,7 +116,7 @@ h1 {
   right: -8px;
   font-size: 24px;
   line-height: 1;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* ============================
@@ -128,7 +138,7 @@ h1 {
   background-color: white;
   border: 8px solid var(--primary);
   border-radius: 30px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
 }
@@ -142,7 +152,8 @@ svg {
 .guide-path {
   fill: none;
   stroke: var(--stroke-guide);
-  stroke-width: 6; /* KanjiVGの座標系(109x109)に合わせた太さ */
+  stroke-width: 6;
+  /* KanjiVGの座標系(109x109)に合わせた太さ */
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -153,7 +164,7 @@ svg {
   stroke-width: 6;
   stroke-linecap: round;
   stroke-linejoin: round;
-  
+
   /* 初期状態では線を隠す */
   stroke-dasharray: 400;
   stroke-dashoffset: 400;
@@ -168,6 +179,7 @@ svg {
   0% {
     stroke-dashoffset: 400;
   }
+
   100% {
     stroke-dashoffset: 0;
   }
@@ -221,11 +233,11 @@ svg {
     max-width: 900px;
     margin: 0 auto;
   }
-  
+
   .char-card {
     font-size: 40px;
   }
-  
+
   h1 {
     font-size: 30px;
   }
